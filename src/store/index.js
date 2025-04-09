@@ -8,6 +8,7 @@ export default createStore({
     authError: null,
     tasks: [],
     taskError: null,
+    users: [],
   },
   mutations: {
     setUser(state, user) {
@@ -38,6 +39,9 @@ export default createStore({
       if (index !== -1) {
         state.tasks[index] = updatedTask;
       }
+    },
+    setUsers(state, users) {
+      state.users = users;
     },
   },
   actions: {
@@ -75,6 +79,18 @@ export default createStore({
         commit('setTasks', response.data);
       } catch (error) {
         commit('setTaskError', 'Error al obtener las tareas.');
+      }
+    },
+    async fetchUsers({ commit }) {
+      try {
+        const response = await axios.get('http://localhost/sis_task/public/api/users', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        commit('setUsers', response.data);
+      } catch (error) {
+        console.error("Error al obtener la usuarios:", error);
       }
     },
     async getTask({ commit }, taskId) {
@@ -135,6 +151,7 @@ export default createStore({
     currentUser: state => state.user,
     authError: state => state.authError,
     tasks: (state) => state.tasks,
+    users: (state) => state.users,
     taskError: (state) => state.taskError,
   }
 });

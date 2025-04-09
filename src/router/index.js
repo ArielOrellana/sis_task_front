@@ -4,12 +4,19 @@ import TaskView from '@/views/Task/Index.vue'
 import TaskCreate from '@/views/Task/Create.vue'
 import TaskEdit from '@/views/Task/Edit.vue'
 import store from '../store'
+import UsersView from '@/views/Users/UsersView.vue'
 
 const routes = [
   {
     path: '/task',
     name: 'task',
     component: TaskView,
+    meta: { requiresAuth: true } 
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: UsersView,
     meta: { requiresAuth: true } 
   },
   {
@@ -39,6 +46,7 @@ const routes = [
     component: TaskEdit,
     meta: { requiresAuth: true } 
   },
+  
 ]
 
 const router = createRouter({

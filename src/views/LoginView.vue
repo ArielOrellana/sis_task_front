@@ -52,11 +52,11 @@ export default {
     async handleLogin() {
     try {
       const success = await this.login({ email: this.email, password: this.password });
-      if (success) {
-        this.$router.push('/task');
-      } else {
-        this.errorMessage = 'Credenciales incorrectas. Por favor, inténtalo de nuevo.';
-      }
+      if (this.$store.getters.isAuthenticated) {
+            this.$router.push('/Task');
+            }else {
+                this.errorMessage = error.response?.data?.message;
+            }
     } catch (error) {
       this.errorMessage = error.response?.data?.message || 'Error de inicio de sesión. Por favor, verifica tus datos.';
     }
